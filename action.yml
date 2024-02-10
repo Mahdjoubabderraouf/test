@@ -57,6 +57,9 @@
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
+          - name: Install dotenv
+            run: pip install dotenv
+            shell: bash
 
       - name: Install Dependencies
         run: pip install -r ${{ github.action_path }}/requirements.txt
