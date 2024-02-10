@@ -142,26 +142,25 @@
               with:
                 path: ${{ runner.temp }}/review.txt
                 # Other necessary parameters for the action...
+            - name: Create comment
+                if: success() || (inputs.post-if-error && inputs.post-if-error != 'false')
+                uses: peter-evans/create-or-update-comment@v3
+                with:
+                  issue-number: ${{ github.event.pull_request.number }}
+                  body: |
+                    # Review:         
+                    - name: Store review result in txt files
+                      run: echo "${{ steps.openai.outputs.reviewresult }}" > ${{ runner.temp }}/review.txt
+                      shell: bash
 
-           - name: Create comment
-  if: success() || (inputs.post-if-error && inputs.post-if-error != 'false')
-  uses: peter-evans/create-or-update-comment@v3
-  with:
-    issue-number: ${{ github.event.pull_request.number }}
-    body: |
-      # Review:         
-      - name: Store review result in txt file
-        run: echo "${{ steps.openai.outputs.reviewresult }}" > ${{ runner.temp }}/review.txt
-        shell: bash
+                    - name: Upload review result to Google Drive
+                      uses: upload-to-google-drive@v1 # Replace with actual action
+                      with:
+                        path: ${{ runner.temp }}/review.txt
+                        # Other necessary parameters for the action...
 
-      - name: Upload review result to Google Drive
-        uses: upload-to-google-drive@v1 # Replace with actual action
-        with:
-          path: ${{ runner.temp }}/review.txt
-          # Other necessary parameters for the action...
-
-      - name: Create comment with review result
-        run: cat ${{ runner.temp }}/review.txt
+                    - name: Create comment with review result
+                      run: cat ${{ runner.temp }}/review.txt
   branding:
     icon: 'user-check'
     color: 'green'
