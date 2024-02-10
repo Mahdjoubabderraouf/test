@@ -60,7 +60,8 @@
      
       - name: Install dotenv
         run: pip install python-dotenv
-
+        shell: bash
+        
       - name: Install Dependencies
         run: pip install -r ${{ github.action_path }}/requirements.txt
         shell: bash
