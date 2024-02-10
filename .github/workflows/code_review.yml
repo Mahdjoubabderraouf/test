@@ -1,0 +1,21 @@
+name: Code review
+
+on:
+  pull_request: # Filter out draft pull requests
+     types:
+     - opened
+     - reopened
+     - synchronize
+     - ready_for_review
+
+jobs:
+  generate_review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./
+        with:
+          openai-key: ${{ secrets.OPENAI_API_KEY }}
+          model: 'gpt-3.5-turbo-0125'
+          include-full-files: 'true'
+          exclude-files: 'package.json,go.sum'
