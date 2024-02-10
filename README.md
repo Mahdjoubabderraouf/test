@@ -1,21 +1,4 @@
-# Code Review Github Action
-
-This action, authored by Frank Chen (@fxchen), improves your pull requests and code base by performing AI-assisted code reviews. It can analyze your pull requests and provide intelligent and insightful comments to help you maintain high code quality.
-
-<details>
-  <summary>Diagram for AI code review</summary>
-  
-```mermaid
-sequenceDiagram
-    participant GithubAction as Github Action
-    participant action_code_review as action_code_review.py
-    participant OpenAI_API as OpenAI API
-    participant Claude_API as Claude API
-    GithubAction->>action_code_review: main()
-    Note over action_code_review: Get environment variables
-    Note over action_code_review: Validate API, persona, and style
-    Note over action_code_review: Read git diff from stdin
-    action_code_review->>action_code_review: get_prompt()
+review->>action_code_review: get_prompt()
     Note over action_code_review: Generate prompt for API
     action_code_review->>action_code_review: prepare_kwargs_func()
     Note over action_code_review: Prepare parameters for API call
