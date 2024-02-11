@@ -54,9 +54,7 @@
           fetch-depth: 0
 
       - name: Install Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
+        uses: actions/setup-python
      
       - name: Install dotenv
         run: pip install python-dotenv
