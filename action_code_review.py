@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 # Load environment variables from .env
 load_dotenv()
 
-# set OPENAI_API_KEY= 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
+# set OPENAI_API_KEY= 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
 FILENAME_VALID_CHARS = "-_.() %s%s" % (string.ascii_letters, string.digits)
 GIT_DIFF_FILENAME_REGEX_PATTERN = r"\+\+\+ b/(.*)"
 DEFAULT_OPENAI_MODEL = "gpt-3.5-turbo-0125"
@@ -136,7 +136,8 @@ def main():
         sys.exit(1)
 
     # Read in the diff
-    diff = sys.stdin.read()
+    diff = """ print("hello")"""
+    # diff = sys.stdin.read()
     """
 
     # Generate the prompt
