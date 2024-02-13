@@ -54,15 +54,18 @@
           fetch-depth: 0
 
       - name: Install Python
-        uses: actions/setup-python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
      
       - name: Install dotenv
         run: pip install python-dotenv
         shell: bash
         
-      - name: Install Dependencies
-        run: pip install -r ${{ github.action_path }}/requirements.txt
+      - name: Install Openai
+        run: pip install openai==0.28
         shell: bash
+        
       - name: Get common ancestor for branch point
         id: first_commit
         run: |
