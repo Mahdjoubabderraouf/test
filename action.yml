@@ -54,7 +54,7 @@
           fetch-depth: 0
 
       - name: Install Python
-        uses: actions/setup-python@latest
+        uses: actions/setup-python
         with:
           python-version: '3.12'
           
