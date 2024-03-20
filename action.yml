@@ -60,9 +60,12 @@
           
       - name: Create venv
         run: python -m venv venv
+        shell: bash
+        
       - name: Activate venv
         run: source venv/bin/activate
-     
+        shell: bash
+        
       - name: Install dotenv
         run: pip install python-dotenv
         shell: bash
