@@ -1,41 +1,38 @@
-name: Code Review Github Action
-description: 'Improve your pull requests and code base with AI-assisted code reviews'
+  runs-on: ubuntu-latest
 
-outputs:
-  results:
-    description: 'Code review results (experimental)'
-
-runs:
-  using: 'composite'
-  steps:
-    - name: Checkout
+    steps:
+    - name: Checkout repository
       uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
 
-    - name: Install Python
-      uses: actions/setup-python@v4
+    - name: Set up Python
+      uses: actions/setup-python@v2
       with:
-        python-version: '3.11'
-        
+        python-version: '3.x'
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install openai
-
-    # Other steps for getting common ancestor, preparing excluded files, running git diff, etc.
-
-    - name: Run OpenAI code review
-      id: openai
+    - name: Run OpenAI code
       run: |
-        # Your script for running OpenAI code review
-        # Example:
-        cat diff.txt | python ${{ github.action_path }}/action_code_review.py > review.txt
-        echo 'reviewresult<<EOF' >> $GITHUB_OUTPUT
-        echo "$(cat review.txt)" >> $GITHUB_OUTPUT
-        echo 'EOF' >> $GITHUB_OUTPUT
-      shell: bash
-      env:
-        GITHUB_TOKEN: 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  # Replace with your GitHub token
-
-    # Other steps for handling errors, creating comments, etc.
+        python script.py
+        echo "::set-output name=result::$(cat result.txt)" # Set the result as an output
+    - name: Comment result
+      if: always() # Ensure this step runs even if previous steps fail
+      run: |
+        result=$(cat result.txt) # Lire le contenu du fichier result.txt
+        echo "The result of running the OpenAI code is: $result" # Imprimer le résultat pour le débogage
+        echo "::set-env name=RESULT::$result" # Définir le résultat comme une variable d'environnement
+      uses: actions/github-script@v4
+      with:
+        github-token: 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
+        script: |
+          const result = 'YOUR_RESULT_HERE'; // Remplacez 'YOUR_RESULT_HERE' par le résultat de votre script
+          const eventName = '$GITHUB_EVENT_NAME'; // Get the event name
+          const commentBody = `The result of running the OpenAI code on ${eventName} is: ${result}`;
+          github.repos.createCommitComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            commit_sha: context.sha,
+            body: commentBody
+          });
