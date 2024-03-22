@@ -39,7 +39,7 @@ jobs:
           echo "::set-env name=RESULT::$result" # Définir le résultat comme une variable d'environnement
         uses: actions/github-script@v4
         with:
-          github-token: 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
+          github-token: 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  # Replace with your GitHub token
           script: |
             const result = process.env.RESULT; // Récupérer le résultat à partir de la variable d'environnement
             const eventName = process.env.GITHUB_EVENT_NAME; // Récupérer le nom de l'événement
@@ -50,3 +50,4 @@ jobs:
               commit_sha: context.sha,
               body: commentBody
             });
+
