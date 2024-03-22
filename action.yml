@@ -41,8 +41,8 @@ jobs:
       with:
         github-token: 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
         script: |
-          const result = process.env.RESULT; // Récupérer le résultat à partir de la variable d'environnement
-          const eventName = '${{ github.event_name }}'; // Récupérer le nom de l'événement
+          const result = 'YOUR_RESULT_HERE'; // Remplacez 'YOUR_RESULT_HERE' par le résultat de votre script
+          const eventName = '$GITHUB_EVENT_NAME'; // Get the event name
           const commentBody = `The result of running the OpenAI code on ${eventName} is: ${result}`;
           github.repos.createCommitComment({
             owner: context.repo.owner,
