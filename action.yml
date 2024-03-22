@@ -33,12 +33,16 @@ jobs:
 
     - name: Comment result
       if: always() # Ensure this step runs even if previous steps fail
+      run: |
+        result=$(cat result.txt) # Lire le contenu du fichier result.txt
+        echo "The result of running the OpenAI code is: $result" # Imprimer le résultat pour le débogage
+        echo "::set-env name=RESULT::$result" # Définir le résultat comme une variable d'environnement
       uses: actions/github-script@v4
       with:
         github-token: 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
         script: |
-          const result = '${{ steps.run_openai.outputs.result }}'; // Get the result from the output
-          const eventName = '${{ github.event_name }}'; // Get the event name
+          const result = process.env.RESULT; // Récupérer le résultat à partir de la variable d'environnement
+          const eventName = '${{ github.event_name }}'; // Récupérer le nom de l'événement
           const commentBody = `The result of running the OpenAI code on ${eventName} is: ${result}`;
           github.repos.createCommitComment({
             owner: context.repo.owner,
@@ -46,4 +50,6 @@ jobs:
             commit_sha: context.sha,
             body: commentBody
           });
+
+          
 
