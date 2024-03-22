@@ -1,6 +1,7 @@
 import time
 from openai import OpenAI
 import os
+import sys
 
 # Read content of the diff file provided as argument
 diff_file = sys.argv[1]
