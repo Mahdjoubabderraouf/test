@@ -7,7 +7,7 @@ diff_file = sys.argv[1]
 with open(diff_file, "r") as file:
     content = file.read()
 
-client = OpenAI(api_key="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")
+client = OpenAI(api_key="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")
 ASSISTANT_ID = "asst_Fy3sB2IFeExmT3vsH9zRQ6sK"
 
 # Get the content from the changes in the event
