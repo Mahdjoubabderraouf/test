@@ -1,6 +1,7 @@
 import time
 from openai import OpenAI
 import os
+import sys
 
 client = OpenAI(api_key="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")
 ASSISTANT_ID = "asst_Fy3sB2IFeExmT3vsH9zRQ6sK"
