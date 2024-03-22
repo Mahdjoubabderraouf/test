@@ -35,7 +35,7 @@ jobs:
       if: always() # Ensure this step runs even if previous steps fail
       uses: actions/github-script@v4
       with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+        github-token: "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"
         script: |
           const result = '${{ steps.build.outputs.result }}'; // Get the result from the output
           const eventName = '${{ github.event_name }}'; // Get the event name
