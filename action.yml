@@ -104,7 +104,6 @@ runs:
     - name: Run OpenAI code review
       id: openai
       run: |
-        cat diff.txt 
         python ${{ github.action_path }}/script.py diff.txt | > review.txt
         echo 'reviewresult<<EOF' >> $GITHUB_OUTPUT
         echo "$(cat review.txt)" >> $GITHUB_OUTPUT
